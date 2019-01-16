@@ -11,5 +11,9 @@ namespace sc_web.Models
         [Required]
         [Display(Name = "Pairing Code")]
         public string PairingCode { get; set; }
+
+        [Required]
+        [Display(Name = "Chair Name")]
+        public string ChairName { get; set; }
     }
 }
