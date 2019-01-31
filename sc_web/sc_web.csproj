@@ -223,7 +223,7 @@
     <Compile Include="Controllers\ChairController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PairingOperationsController.cs" />
+    <Compile Include="Controllers\PairingAPIController.cs" />
     <Compile Include="DataLayer\PairingOperationsContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -234,7 +234,7 @@
     <Compile Include="Models\Chair\SensorModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PairingOperationsModels.cs" />
+    <Compile Include="Models\PairingAPIModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

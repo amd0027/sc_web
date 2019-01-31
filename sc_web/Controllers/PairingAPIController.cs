@@ -14,7 +14,7 @@ using sc_web.Models;
 namespace sc_web.Controllers
 {
     [RoutePrefix("api/PairingOperations")]
-    public class PairingOperationsController : ApiController
+    public class PairingAPIController : ApiController
     {
         private PairingOperationsContext db = new PairingOperationsContext();
 
@@ -25,7 +25,7 @@ namespace sc_web.Controllers
         [Route("GetLatestVersion")]
         public Models.UpdateCheck GetLatestVersion()
         {
-            Models.UpdateCheck updateCheck;
+            UpdateCheck updateCheck;
 
             // TODO: Pull the latest version from the configuration data somewhere
             updateCheck = new Models.UpdateCheck()
