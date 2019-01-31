@@ -6,7 +6,7 @@ using System.Web;
 
 namespace sc_web.Models.Chair
 {
-    public class SmartChairModels
+    public class SmartChairModel
     {
         [Key]
         public string AuthKey { get; set; }

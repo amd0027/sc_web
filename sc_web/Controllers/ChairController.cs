@@ -58,7 +58,7 @@ namespace sc_web.Controllers
 
             var user = UserManager.FindById(User.Identity.GetUserId());
             var authKey = Guid.NewGuid().ToString();
-            var chair = new SmartChairModels()
+            var chair = new SmartChairModel()
             {
                 AuthKey = authKey,
                 Name = model.ChairName
