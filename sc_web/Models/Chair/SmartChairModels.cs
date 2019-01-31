@@ -12,7 +12,9 @@ namespace sc_web.Models.Chair
         public string AuthKey { get; set; }
         public string Name { get; set; }
 
-        public List<HeartRateSensorModel> SensorData { get; set; }
-        // TODO - add more data collections 
+        public List<HeartRateSensorModel> HeartSensorData { get; set; }
+        public List<PostureSensorModel> PostureSensorData { get; set; }
+        public List<MotionEventModel> MotionSensorData { get; set; }
+        public List<OccupancySessionModel> OccupancySessionData { get; set; }
     }
 }
