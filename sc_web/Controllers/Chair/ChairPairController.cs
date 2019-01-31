@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace sc_web.Controllers
 {
     [Authorize]
-    public class ChairController : Controller
+    public class ChairPairController : Controller
     {
         /// <summary>
         /// Application DB context
@@ -24,7 +24,7 @@ namespace sc_web.Controllers
         /// </summary>
         protected UserManager<ApplicationUser> UserManager { get; set; }
 
-        public ChairController()
+        public ChairPairController()
         {
             this.ApplicationDbContext = new ApplicationDbContext();
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
