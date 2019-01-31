@@ -229,7 +229,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ChairModels.cs" />
+    <Compile Include="Models\PairingRequestModels.cs" />
     <Compile Include="Models\Chair\SmartChairModels.cs" />
     <Compile Include="Models\Chair\SensorModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
