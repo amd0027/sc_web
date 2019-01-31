@@ -32,7 +32,7 @@ namespace sc_web.Controllers
             {
                 LatestMajorVersion = 0,
                 LatestMinorVersion = 3,
-                FirmwareURL = "https://microcube.info/FirmwareDistrib/v03.bin"
+                FirmwareURL = "https://uahsmartchair.com/FirmwareDistrib/v03.bin"
             };
 
             return updateCheck;
