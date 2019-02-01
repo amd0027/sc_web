@@ -30,19 +30,23 @@ namespace sc_web.Controllers
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
         }
 
-        //// GET: Chair/Pair
-        //[HttpGet]
-        //public ActionResult Pair()
-        //{
-        //    return View();
-        //}
+        // GET: Chair/Dashboard
+        [HttpGet]
+        public ActionResult Dashboard()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            return View(user);
+        }
 
         // GET: Chair/Pair
         [HttpGet]
         public ActionResult Pair(string pairingCode)
         {
-            var prepopulatedModel = new Models.PairingRequest();
-            prepopulatedModel.PairingCode = pairingCode;
+            var prepopulatedModel = new PairingRequest
+            {
+                PairingCode = pairingCode
+            };
 
             return View(prepopulatedModel);
         }

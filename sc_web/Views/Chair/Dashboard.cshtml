@@ -1,0 +1,28 @@
+﻿@model sc_web.Models.ApplicationUser
+@{
+    ViewBag.Title = "User Dashboard";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@Html.AntiForgeryToken()
+<hr />
+@Html.ValidationSummary("", new { @class = "text-danger" })
+
+<div class="card-deck">
+    @foreach (var chair in Model.PairedChairs)
+    {
+        <div class="card" style="width:10em">
+            <img class="card-img-top" src="@Url.Content("~/Images/SmartChairCard.png")" alt="Smart Chair image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">@chair.Name</h4>
+                <p class="card-text">View Stored Data for @chair.Name 's Smart Chair</p>
+                <a href="#" class="btn btn-primary">View Data</a>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
