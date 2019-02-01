@@ -12,8 +12,43 @@ namespace sc_web.Models.Chair
         public DateTime Timestamp { get; set; }
 
         public int MeasuredBPM { get; set; }
-
     }
 
-    // TODO: Add additional sensor models here, and incorporate them into SmartChairModel
+    public class PostureSensorModel
+    {
+        [Key]
+        public DateTime Timestamp { get; set; }
+
+        public int PostureData { get; set; }
+    }
+
+    public class OccupancySessionModel
+    {
+        [Key]
+        public DateTime Timestamp { get; set; }
+
+        public DateTime SitDownTime { get; set; }
+
+        // A uint32 will allow for 42 days of sitting - more than enough
+        public UInt32 ElapsedTimeMs { get; set; }
+    }
+
+    public class MotionEventModel
+    {
+        [Key]
+        public DateTime Timestamp { get; set; }
+
+        [Flags]
+        public enum MotionAxis : short
+        {
+            X = 1,
+            Y = 2,
+            Z = 4,
+            RotateSideSide  = 8,
+            RotateFrontBack = 16
+        }
+
+        public short Axis { get; set; }
+        public short Level { get; set; }
+    }
 }

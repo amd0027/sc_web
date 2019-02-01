@@ -225,18 +225,18 @@
     <Compile Include="Controllers\ChairController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PairingOperationsController.cs" />
+    <Compile Include="Controllers\PairingAPIController.cs" />
     <Compile Include="DataLayer\PairingOperationsContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ChairModels.cs" />
+    <Compile Include="Models\PairingRequestModels.cs" />
     <Compile Include="Models\Chair\SmartChairModels.cs" />
     <Compile Include="Models\Chair\SensorModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PairingOperationsModels.cs" />
+    <Compile Include="Models\PairingAPIModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -350,6 +350,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Chair\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
