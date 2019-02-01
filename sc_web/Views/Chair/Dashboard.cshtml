@@ -24,6 +24,17 @@
                 </div>
             </div>
         }
+
+        <div class="col-xs-6 col-md-4">
+            <div class="card" style="width:15em">
+                <img class="card-img-top" src="@Url.Content("~/Images/NewSmartChairCard.png")" alt="New Smart Chair image" style="width:100%; max-height:100%">
+                <div class="card-body">
+                    <h4 class="card-title">Add A New Smart Chair</h4>
+                    <p class="card-text">Pair Your New Smart Chair Here</p>
+                    @Html.ActionLink("Begin Pairing", "Pair", "Chair", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
