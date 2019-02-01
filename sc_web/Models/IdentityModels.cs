@@ -18,7 +18,7 @@ namespace sc_web.Models
             return userIdentity;
         }
 
-        public List<Chair.SmartChairModel> PairedChairs { get; set; } = new List<Chair.SmartChairModel>();
+        public virtual List<Chair.SmartChairModel> PairedChairs { get; set; } 
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
