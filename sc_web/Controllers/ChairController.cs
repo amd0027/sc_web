@@ -30,6 +30,16 @@ namespace sc_web.Controllers
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
         }
 
+        // GET: Chair/ChairView
+        [HttpGet]
+        public ActionResult ChairView(string WebKey)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var chair = user.PairedChairs.Find(c => c.WebKey == WebKey);
+
+            return View(chair);
+        }
+
         // GET: Chair/Dashboard
         [HttpGet]
         public ActionResult Dashboard()
