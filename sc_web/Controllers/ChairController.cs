@@ -65,7 +65,8 @@ namespace sc_web.Controllers
             var chair = new SmartChairModel()
             {
                 AuthKey = authKey,
-                Name = model.ChairName
+                Name = model.ChairName,
+                WebKey = Guid.NewGuid().ToString()
             };
 
             // update the current pending status with the new AuthKey
