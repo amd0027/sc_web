@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <h4 class="card-title">@chair.Name</h4>
                         <p class="card-text">View Stored Data for @chair.Name Smart Chair</p>
-                        <a href="#" class="btn btn-primary">View Data</a>
+                        @Html.ActionLink("View Data", "ChairView", "Chair", new { @chair.WebKey }, new { @class = "btn btn-primary" })
                     </div>
                 </div>
             </div>
