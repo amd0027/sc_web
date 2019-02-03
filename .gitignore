@@ -4,3 +4,5 @@ Release
 packages
 bin
 *.user
+*.ldf
+*.mdf
