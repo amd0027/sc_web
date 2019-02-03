@@ -31,11 +31,33 @@ namespace sc_web.Controllers
         }
 
         // GET: Chair/ChairView
-        [HttpGet]
-        public ActionResult ChairView(string WebKey)
+        //[HttpGet]
+        public ActionResult ChairView(string WebKey, string TimeRange)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
             var chair = user.PairedChairs.Find(c => c.WebKey == WebKey);
+
+            switch (TimeRange)
+            {
+                case "thisweek":
+                    ViewBag.RangeStart = DateTime.Today.Subtract(TimeSpan.FromDays((int)DateTime.Today.DayOfWeek));
+                    ViewBag.RangeEnd = DateTime.Today.AddDays(1);
+                    ViewBag.RangeString = "This Week";
+                    break;
+
+                case "thismonth":
+                    ViewBag.RangeStart = DateTime.Today.Subtract(TimeSpan.FromDays(DateTime.Today.Day - 1));
+                    ViewBag.RangeEnd = DateTime.Today.AddDays(1);
+                    ViewBag.RangeString = "This Month";
+                    break;
+
+                case "today":
+                default:
+                    ViewBag.RangeStart = DateTime.Today;
+                    ViewBag.RangeEnd = DateTime.Today.AddDays(1);
+                    ViewBag.RangeString = "Today";
+                    break;
+            }
 
             return View(chair);
         }

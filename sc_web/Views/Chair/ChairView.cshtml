@@ -31,6 +31,24 @@
             </nav>
         </aside>
         <main class="col bg-faded py-3">
+
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "selectorform" }))
+            {
+                <input id="WebKey" name="WebKey" type="hidden" value="@Model.WebKey">
+                <input id="TimeRange" name="TimeRange" type="hidden">
+
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle float-sm-right" id="timeSelectorBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span data-feather="calendar"></span>
+                    @ViewBag.RangeString
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" onclick="$('#TimeRange').val('today'); $('#selectorform').submit()">Today</a>
+                    <a class="dropdown-item" href="#" onclick="$('#TimeRange').val('thisweek'); $('#selectorform').submit()">This Week</a>
+                    <a class="dropdown-item" href="#" onclick="$('#TimeRange').val('thismonth'); $('#selectorform').submit()">This Month</a>
+                </div>
+            }
+
+
             <div id="chairDataGroup">
                 <div class="collapse show" id="collapseOverview">
                     <h2>Overview</h2>
