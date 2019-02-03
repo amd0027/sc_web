@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using sc_web.DataLayer;
@@ -23,12 +18,12 @@ namespace sc_web.Controllers
 
         // GET api/<controller>
         [Route("GetLatestVersion")]
-        public Models.UpdateCheck GetLatestVersion()
+        public UpdateCheck GetLatestVersion()
         {
             UpdateCheck updateCheck;
 
             // TODO: Pull the latest version from the configuration data somewhere
-            updateCheck = new Models.UpdateCheck()
+            updateCheck = new UpdateCheck()
             {
                 LatestMajorVersion = 0,
                 LatestMinorVersion = 3,
@@ -51,10 +46,12 @@ namespace sc_web.Controllers
             }
 
             // generate a new pairing key
-            PairingOperation pairingOperation = new PairingOperation();
-            pairingOperation.DeviceUUID = uuid;
+            PairingOperation pairingOperation = new PairingOperation
+            {
+                DeviceUUID = uuid,
 
-            pairingOperation.ID = GetRandomPairingCode();
+                ID = GetRandomPairingCode()
+            };
             while (PairingOperationExists(pairingOperation.ID))
             {
                 // make sure it is unique
