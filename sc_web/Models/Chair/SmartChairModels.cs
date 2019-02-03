@@ -14,9 +14,9 @@ namespace sc_web.Models.Chair
         public string Name { get; set; }
         public string WebKey { get; set; }
 
-        public List<HeartRateSensorModel> HeartSensorData { get; set; }
-        public List<PostureSensorModel> PostureSensorData { get; set; }
-        public List<MotionEventModel> MotionSensorData { get; set; }
-        public List<OccupancySessionModel> OccupancySessionData { get; set; }
+        public virtual List<HeartRateSensorModel> HeartSensorData { get; set; }
+        public virtual List<PostureSensorModel> PostureSensorData { get; set; }
+        public virtual List<MotionEventModel> MotionSensorData { get; set; }
+        public virtual List<OccupancySessionModel> OccupancySessionData { get; set; }
     }
 }
