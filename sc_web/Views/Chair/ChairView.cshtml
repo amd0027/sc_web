@@ -32,7 +32,7 @@
         </aside>
         <main class="col bg-faded py-3">
 
-            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "selectorform" }))
+            @using (Html.BeginForm(null, null, FormMethod.Get, new { id = "selectorform" }))
             {
                 <input id="WebKey" name="WebKey" type="hidden" value="@Model.WebKey">
                 <input id="TimeRange" name="TimeRange" type="hidden">
