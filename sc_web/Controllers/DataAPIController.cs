@@ -25,6 +25,18 @@ namespace sc_web.Controllers
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
         }
 
+        private System.DateTime CorrectTimeStamps(System.DateTime timestamp)
+        {
+            if (timestamp == System.DateTime.MinValue)
+            {
+                return System.DateTime.Now;
+            }
+            else
+            {
+                return timestamp;
+            }
+        }
+
         [Route("PostHeartRateData")]
         public IHttpActionResult PostHeartRateData(Models.Chair.HeartRateSensorModel data)
         {
@@ -48,6 +60,8 @@ namespace sc_web.Controllers
             {
                 return BadRequest("Bad AuthKey");
             }
+
+            data.Timestamp = CorrectTimeStamps(data.Timestamp);
 
             chair.HeartSensorData.Add(data);
             ApplicationDbContext.SaveChanges();
@@ -79,6 +93,8 @@ namespace sc_web.Controllers
                 return BadRequest("Bad AuthKey");
             }
 
+            data.Timestamp = CorrectTimeStamps(data.Timestamp);
+
             chair.PostureSensorData.Add(data);
             ApplicationDbContext.SaveChanges();
 
@@ -109,6 +125,8 @@ namespace sc_web.Controllers
                 return BadRequest("Bad AuthKey");
             }
 
+            data.Timestamp = CorrectTimeStamps(data.Timestamp);
+
             chair.MotionSensorData.Add(data);
             ApplicationDbContext.SaveChanges();
 
@@ -138,6 +156,8 @@ namespace sc_web.Controllers
             {
                 return BadRequest("Bad AuthKey");
             }
+
+            data.Timestamp = CorrectTimeStamps(data.Timestamp);
 
             chair.OccupancySessionData.Add(data);
             ApplicationDbContext.SaveChanges();
