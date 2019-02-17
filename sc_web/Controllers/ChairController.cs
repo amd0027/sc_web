@@ -30,19 +30,55 @@ namespace sc_web.Controllers
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
         }
 
-        //// GET: Chair/Pair
+        // GET: Chair/ChairView
         //[HttpGet]
-        //public ActionResult Pair()
-        //{
-        //    return View();
-        //}
+        public ActionResult ChairView(string WebKey, string TimeRange)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var chair = user.PairedChairs.Find(c => c.WebKey == WebKey);
+
+            switch (TimeRange)
+            {
+                case "thisweek":
+                    ViewBag.RangeStart = DateTime.Today.Subtract(TimeSpan.FromDays((int)DateTime.Today.DayOfWeek));
+                    ViewBag.RangeEnd = DateTime.Today.AddDays(1);
+                    ViewBag.RangeString = "This Week";
+                    break;
+
+                case "thismonth":
+                    ViewBag.RangeStart = DateTime.Today.Subtract(TimeSpan.FromDays(DateTime.Today.Day - 1));
+                    ViewBag.RangeEnd = DateTime.Today.AddDays(1);
+                    ViewBag.RangeString = "This Month";
+                    break;
+
+                case "today":
+                default:
+                    ViewBag.RangeStart = DateTime.Today;
+                    ViewBag.RangeEnd = DateTime.Today.AddDays(1);
+                    ViewBag.RangeString = "Today";
+                    break;
+            }
+
+            return View(chair);
+        }
+
+        // GET: Chair/Dashboard
+        [HttpGet]
+        public ActionResult Dashboard()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            return View(user);
+        }
 
         // GET: Chair/Pair
         [HttpGet]
         public ActionResult Pair(string pairingCode)
         {
-            var prepopulatedModel = new Models.PairingRequest();
-            prepopulatedModel.PairingCode = pairingCode;
+            var prepopulatedModel = new PairingRequest
+            {
+                PairingCode = pairingCode
+            };
 
             return View(prepopulatedModel);
         }
@@ -58,10 +94,11 @@ namespace sc_web.Controllers
 
             var user = UserManager.FindById(User.Identity.GetUserId());
             var authKey = Guid.NewGuid().ToString();
-            var chair = new SmartChairModels()
+            var chair = new SmartChairModel()
             {
                 AuthKey = authKey,
-                Name = model.ChairName
+                Name = model.ChairName,
+                WebKey = Guid.NewGuid().ToString()
             };
 
             // update the current pending status with the new AuthKey

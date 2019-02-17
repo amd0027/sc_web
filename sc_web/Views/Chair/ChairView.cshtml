@@ -1,0 +1,99 @@
+﻿@model sc_web.Models.Chair.SmartChairModel
+@{
+    ViewBag.Title = "Smart Chair Data";
+}
+
+<h2>@Model.Name Smart Chair</h2>
+
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <aside class="col-12 col-md-2 p-0 bg-dark">
+            <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-2">
+                <div class="collapse navbar-collapse">
+                    <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" data-toggle="collapse" data-parent="#chairDataGroup" href="#collapseOverview"><span data-feather="file"></span><span class="font-weight-bold pl-1">Overview</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" data-toggle="collapse" data-parent="#chairDataGroup" href="#collapsePosture"><span data-feather="user-check"></span><span class="font-weight-bold pl-1">Posture</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" data-toggle="collapse" data-parent="#chairDataGroup" href="#collapseHeart"><span data-feather="heart"></span><span class="font-weight-bold pl-1">Heart</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" data-toggle="collapse" data-parent="#chairDataGroup" href="#collapseMotion"><span data-feather="activity"></span><span class="font-weight-bold pl-1">Motion</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" data-toggle="collapse" data-parent="#chairDataGroup" href="#collapseSitting"><span data-feather="coffee"></span><span class="font-weight-bold pl-1">Sitting</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main class="col bg-faded py-3">
+
+            @using (Html.BeginForm(null, null, FormMethod.Get, new { id = "selectorform" }))
+            {
+                <input id="WebKey" name="WebKey" type="hidden" value="@Model.WebKey">
+                <input id="TimeRange" name="TimeRange" type="hidden">
+
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle float-sm-right" id="timeSelectorBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span data-feather="calendar"></span>
+                    @ViewBag.RangeString
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" onclick="$('#TimeRange').val('today'); $('#selectorform').submit()">Today</a>
+                    <a class="dropdown-item" href="#" onclick="$('#TimeRange').val('thisweek'); $('#selectorform').submit()">This Week</a>
+                    <a class="dropdown-item" href="#" onclick="$('#TimeRange').val('thismonth'); $('#selectorform').submit()">This Month</a>
+                </div>
+            }
+
+
+            <div id="chairDataGroup">
+                <div class="collapse show" id="collapseOverview">
+                    <h2>Overview</h2>
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+
+                <div class="collapse" id="collapsePosture">
+                    <h2>Posture</h2>
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+
+                <div class="collapse" id="collapseHeart">
+                    <h2>Heart</h2>
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+
+                <div class="collapse" id="collapseMotion">
+                    <h2>Motion</h2>
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+
+                <div class="collapse" id="collapseSitting">
+                    <h2>Sitting</h2>
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/feather")
+    
+    <script>
+           feather.replace()
+    </script>
+
+    <script>
+        var $myGroup = $('#chairDataGroup');
+        $myGroup.on('show.bs.collapse', '.collapse', function () {
+            $myGroup.find('.collapse.show').collapse('hide');
+        });
+    </script>
+}
+
+
+
