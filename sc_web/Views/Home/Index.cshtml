@@ -3,12 +3,15 @@
 }
 
 <div class="jumbotron">
+    <center>
     <h1>Welcome to Smart Chair!</h1>
     <p class="lead">New to Smart Chair? Create a new account.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <!--<p><a href="https://uahsmartchair.com/Account/Login" class="btn btn-primary btn-lg">Log in &raquo;</a></p>-->
+    <p>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</p>
+    </center>
 </div>
 
-<div class="row">
+<!--<div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
@@ -28,4 +31,4 @@
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
-</div>
+</div>-->
