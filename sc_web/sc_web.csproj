@@ -267,6 +267,7 @@
     </None>
     <Content Include="Images\NewSmartChairCard.png" />
     <Content Include="Images\samplesmartpic.jpg" />
+    <Content Include="Images\samplesmartpic.png" />
     <Content Include="Images\SmartChairCard.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
