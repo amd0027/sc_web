@@ -11,6 +11,10 @@ namespace sc_web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/chartsjs").Include(
+                      "~/Scripts/Chart.js",
+                      "~/Scripts/moment.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
