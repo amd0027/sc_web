@@ -5,6 +5,18 @@
 
 <h2>@Model.Name Smart Chair</h2>
 
+<script>
+        window.chartColors = {
+            red: 'rgb(255, 99, 132)',
+            orange: 'rgb(255, 159, 64)',
+            yellow: 'rgb(255, 205, 86)',
+            green: 'rgb(75, 192, 192)',
+            blue: 'rgb(54, 162, 235)',
+            purple: 'rgb(153, 102, 255)',
+            grey: 'rgb(201, 203, 207)'
+        };
+</script>
+
 <div class="container-fluid h-100">
     <div class="row h-100">
         <aside class="col-12 col-md-2 p-0 bg-dark">
@@ -62,83 +74,7 @@
 
                 <div class="collapse" id="collapseHeart">
                     <h2>Heart</h2>
-
-                    <div style="width:75%;">
-                        <canvas id="canvas"></canvas>
-                    </div>
-                    <br>
-
-                    <script>
-                        var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                        var config = {
-                            type: 'line',
-                            data: {
-                                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                                datasets: [{
-                                    label: 'My First dataset',
-                                    backgroundColor: 'rgb(255, 99, 132)',
-                                    borderColor: 'rgb(255, 99, 132)',
-                                    data: [
-                                        1,
-                                        2,
-                                        3,
-                                        4,
-                                        5
-                                    ],
-                                    fill: false,
-                                }, {
-                                    label: 'My Second dataset',
-                                    fill: false,
-                                    backgroundColor: 'rgb(54, 162, 235)',
-                                    borderColor: 'rgb(54, 162, 235)',
-                                    data: [
-                                        6,
-                                        7,
-                                        8,
-                                        9,
-                                        10
-                                    ],
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                title: {
-                                    display: true,
-                                    text: 'Chart.js Line Chart'
-                                },
-                                tooltips: {
-                                    mode: 'index',
-                                    intersect: false,
-                                },
-                                hover: {
-                                    mode: 'nearest',
-                                    intersect: true
-                                },
-                                scales: {
-                                    xAxes: [{
-                                        display: true,
-                                        scaleLabel: {
-                                            display: true,
-                                            labelString: 'Month'
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        display: true,
-                                        scaleLabel: {
-                                            display: true,
-                                            labelString: 'Value'
-                                        }
-                                    }]
-                                }
-                            }
-                        };
-
-                        window.onload = function () {
-                            var ctx = document.getElementById('canvas').getContext('2d');
-                            window.myLine = new Chart(ctx, config);
-                        };
-                    </script>
-
+                    <canvas id="chartHeart"></canvas>
                 </div>
 
                 <div class="collapse" id="collapseMotion">
@@ -148,7 +84,7 @@
 
                 <div class="collapse" id="collapseSitting">
                     <h2>Sitting</h2>
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    <canvas id="chartSitting"></canvas>
                 </div>
             </div>
         </main>
@@ -169,5 +105,125 @@
         $myGroup.on('show.bs.collapse', '.collapse', function () {
             $myGroup.find('.collapse.show').collapse('hide');
         });
+    </script>
+
+    <script>
+        /*Heartrate Chart Initialization*/
+        var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var chartHeartConfig = {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    data: [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    fill: false,
+                }, {
+                    label: 'My Second dataset',
+                    fill: false,
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
+                    data: [
+                        6,
+                        7,
+                        8,
+                        9,
+                        10
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Chart.js Line Chart'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
+            }
+        };
+
+        /*Sitting Chart Initialization*/
+        var chartSittingConfig = {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    backgroundColor: [
+                        window.chartColors.red,
+                        window.chartColors.orange,
+                        window.chartColors.yellow,
+                        window.chartColors.green,
+                        window.chartColors.blue,
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    'Red',
+                    'Orange',
+                    'Yellow',
+                    'Green',
+                    'Blue'
+                ]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Doughnut Chart'
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
+        };
+
+        window.onload = function () {
+            var chartHeartCtx = document.getElementById('chartHeart').getContext('2d');
+            new Chart(chartHeartCtx, chartHeartConfig);
+
+            var chartSittingCtx = document.getElementById('chartSitting').getContext('2d');
+            new Chart(chartSittingCtx, chartSittingConfig);
+        }
     </script>
 }
