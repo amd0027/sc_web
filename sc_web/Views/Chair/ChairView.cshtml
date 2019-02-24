@@ -12,6 +12,7 @@
             yellow: 'rgb(255, 205, 86)',
             green: 'rgb(75, 192, 192)',
             blue: 'rgb(54, 162, 235)',
+            blueTrans: 'rgba(54, 162, 235, 0.3)',
             purple: 'rgb(153, 102, 255)',
             grey: 'rgb(201, 203, 207)'
         };
@@ -69,7 +70,7 @@
 
                 <div class="collapse" id="collapsePosture">
                     <h2>Posture</h2>
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    <canvas id="chartPosture"></canvas>
                 </div>
 
                 <div class="collapse" id="collapseHeart">
@@ -108,7 +109,63 @@
     </script>
 
     <script>
-        /*Heartrate Chart Initialization*/
+         /*Posture Bubble Chart Initialization*/
+        var charPostureConfig = {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label: ['Posture Data'],
+                    data: [{
+                        x: 100,
+                        y: 0,
+                        r: 10
+                    }, {
+                        x: 60,
+                        y: 30,
+                        r: 20
+                    }, {
+                        x: 40,
+                        y: 60,
+                        r: 25
+                    }, {
+                        x: 80,
+                        y: 80,
+                        r: 50
+                    }, {
+                        x: 20,
+                        y: 30,
+                        r: 25
+                    }, {
+                        x: 0,
+                        y: 100,
+                        r: 5
+                    }],
+
+                    backgroundColor: window.chartColors.blueTrans,
+                    borderColor: window.chartColors.blue,
+                }]
+            },
+            options: {
+                aspectRatio: 1,
+                legend: false,
+                tooltips: false,
+
+                elements: {
+                    point: {
+                        hoverBackgroundColor: 'transparent',
+
+                        radius: function (context) {
+                            var value = context.dataset.data[context.dataIndex];
+                            var size = context.chart.width;
+                            var base = Math.abs(value.v) / 1000;
+                            return (size / 24) * base;
+                        }
+                    }
+                }
+            }
+        };
+
+        /*Heartrate Line Chart Initialization*/
         var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         var chartHeartConfig = {
             type: 'line',
@@ -173,7 +230,7 @@
             }
         };
 
-        /*Sitting Chart Initialization*/
+        /*Sitting Donut Chart Initialization*/
         var chartSittingConfig = {
             type: 'doughnut',
             data: {
@@ -219,6 +276,9 @@
         };
 
         window.onload = function () {
+            var chartPostureCtx = document.getElementById('chartPosture').getContext('2d');
+            new Chart(chartPostureCtx, charPostureConfig);
+
             var chartHeartCtx = document.getElementById('chartHeart').getContext('2d');
             new Chart(chartHeartCtx, chartHeartConfig);
 
