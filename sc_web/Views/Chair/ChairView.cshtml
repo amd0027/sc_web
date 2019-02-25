@@ -65,7 +65,7 @@
             <div id="chairDataGroup">
                 <div class="collapse show" id="collapseOverview">
                     <h2>Overview</h2>
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    The dashboard shows the health data gathered over time. Use the menu at the left to choose the graph to view. Use the menu at the upper-right to choose the time period.
                 </div>
 
                 <div class="collapse" id="collapsePosture">
@@ -80,7 +80,7 @@
 
                 <div class="collapse" id="collapseMotion">
                     <h2>Motion</h2>
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    <canvas id="chartMotion"></canvas>
                 </div>
 
                 <div class="collapse" id="collapseSitting">
@@ -230,6 +230,70 @@
             }
         };
 
+        /*Motion Line Chart Initialization*/       
+        var chartMotionConfig = {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    data: [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    fill: false,
+                }, {
+                    label: 'My Second dataset',
+                    fill: false,
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
+                    data: [
+                        6,
+                        7,
+                        8,
+                        9,
+                        10
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Chart.js Line Chart'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
+            }
+        };
+
         /*Sitting Donut Chart Initialization*/
         var chartSittingConfig = {
             type: 'doughnut',
@@ -281,6 +345,9 @@
 
             var chartHeartCtx = document.getElementById('chartHeart').getContext('2d');
             new Chart(chartHeartCtx, chartHeartConfig);
+
+            var chartMotionCtx = document.getElementById('chartMotion').getContext('2d');
+            new Chart(chartMotionCtx, chartMotionConfig);
 
             var chartSittingCtx = document.getElementById('chartSitting').getContext('2d');
             new Chart(chartSittingCtx, chartSittingConfig);
