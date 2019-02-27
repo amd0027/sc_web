@@ -230,7 +230,7 @@
             }
         };
 
-        /*Motion Line Chart Initialization*/       
+        /*Motion Line Chart Initialization*/
         var chartMotionConfig = {
             type: 'line',
             data: {
@@ -300,11 +300,19 @@
             data: {
                 datasets: [{
                     data: [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
+                        @{
+                            var selectedPoints = Model.OccupancySessionData.Where(d => d.Timestamp >= ViewBag.RangeStart && d.Timestamp <= ViewBag.RangeEnd);
+
+                            var tenMinutes = TimeSpan.FromMinutes(10);
+                            var thirtyMinutes = TimeSpan.FromMinutes(30);
+                            var oneHour = TimeSpan.FromHours(1);
+                            var twoHours = TimeSpan.FromHours(2);
+                         }
+                        @selectedPoints.Count(d => d.ElapsedTimeMs < tenMinutes.TotalMilliseconds),
+                        @selectedPoints.Count(d => d.ElapsedTimeMs >= tenMinutes.TotalMilliseconds && d.ElapsedTimeMs < thirtyMinutes.TotalMilliseconds),
+                        @selectedPoints.Count(d => d.ElapsedTimeMs >= thirtyMinutes.TotalMilliseconds && d.ElapsedTimeMs < oneHour.TotalMilliseconds),
+                        @selectedPoints.Count(d => d.ElapsedTimeMs >= oneHour.TotalMilliseconds && d.ElapsedTimeMs < twoHours.TotalMilliseconds),
+                        @selectedPoints.Count(d => d.ElapsedTimeMs >= twoHours.TotalMilliseconds),
                     ],
                     backgroundColor: [
                         window.chartColors.red,
@@ -313,14 +321,14 @@
                         window.chartColors.green,
                         window.chartColors.blue,
                     ],
-                    label: 'Dataset 1'
+                    label: 'Sitting Frequency'
                 }],
                 labels: [
-                    'Red',
-                    'Orange',
-                    'Yellow',
-                    'Green',
-                    'Blue'
+                    '<10 Minutes',
+                    '10-30 Minutes',
+                    '30 Minutes - 1 Hour',
+                    '1-2 Hours',
+                    '>2 Hours'
                 ]
             },
             options: {
@@ -330,7 +338,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Chart.js Doughnut Chart'
+                    text: 'Sitting Frequency'
                 },
                 animation: {
                     animateScale: true,
