@@ -186,7 +186,7 @@
                     backgroundColor: window.chartColors.red,
                     borderColor: window.chartColors.red,
                     data: [
-                         @foreach (var dataPoint in Model.HeartSensorData) //.Where(d => d.Timestamp >= ViewBag.RangeStart && d.Timestamp <= ViewBag.RangeEnd))
+                         @foreach (var dataPoint in Model.HeartSensorData.Where(d => d.Timestamp >= ViewBag.RangeStart && d.Timestamp <= ViewBag.RangeEnd))
                          {
                              @Html.Raw($"{{x: '{dataPoint.Timestamp.ToString("o")}', y:'{dataPoint.MeasuredBPM}'}}");
                              @Html.Raw(",");
