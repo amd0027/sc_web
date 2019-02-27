@@ -66,6 +66,18 @@
                 <div class="collapse show" id="collapseOverview">
                     <h2>Overview</h2>
                     The dashboard shows the health data gathered over time. Use the menu at the left to choose the graph to view. Use the menu at the upper-right to choose the time period.
+
+                    <br />
+                    ------------------------------DEBUG DATA-----------------------------<br />
+                    AuthKey: @Model.AuthKey <br />
+                    WebKey: @Model.WebKey <br />
+                    ChairName: @Model.Name <br />
+                    Number of Heart Points: @Model.HeartSensorData.Count <br />
+                    Number of Motion Points: @Model.MotionSensorData.Count <br />
+                    Number of Posture Points: @Model.PostureSensorData.Count <br />
+                    Number of Occupancy Points: @Model.OccupancySessionData.Count <br />
+                    RangeStart: @ViewBag.RangeStart <br />
+                    RangeEnd: @ViewBag.RangeEnd <br />
                 </div>
 
                 <div class="collapse" id="collapsePosture">
@@ -166,42 +178,28 @@
         };
 
         /*Heartrate Line Chart Initialization*/
-        var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         var chartHeartConfig = {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [{
-                    label: 'My First dataset',
+                    label: 'Heart Rate',
                     backgroundColor: window.chartColors.red,
                     borderColor: window.chartColors.red,
                     data: [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
+                         @foreach (var dataPoint in Model.HeartSensorData) //.Where(d => d.Timestamp >= ViewBag.RangeStart && d.Timestamp <= ViewBag.RangeEnd))
+                         {
+                             @Html.Raw($"{{x: '{dataPoint.Timestamp.ToString("o")}', y:'{dataPoint.MeasuredBPM}'}}");
+                             @Html.Raw(",");
+                         }
                     ],
                     fill: false,
-                }, {
-                    label: 'My Second dataset',
-                    fill: false,
-                    backgroundColor: window.chartColors.blue,
-                    borderColor: window.chartColors.blue,
-                    data: [
-                        6,
-                        7,
-                        8,
-                        9,
-                        10
-                    ],
                 }]
             },
             options: {
                 responsive: true,
                 title: {
                     display: true,
-                    text: 'Chart.js Line Chart'
+                    text: 'Observed Heart Rate'
                 },
                 tooltips: {
                     mode: 'index',
@@ -214,16 +212,18 @@
                 scales: {
                     xAxes: [{
                         display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Month'
+                        type: 'time',
+                        time: {
+                            displayFormats: {
+                                quarter: 'MMM YYYY'
+                            }
                         }
                     }],
                     yAxes: [{
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Value'
+                            labelString: 'BPM'
                         }
                     }]
                 }
