@@ -127,31 +127,34 @@
             data: {
                 datasets: [{
                     label: ['Posture Data'],
-                    data: [{
-                        x: 100,
-                        y: 0,
-                        r: 10
-                    }, {
-                        x: 60,
-                        y: 30,
-                        r: 20
-                    }, {
-                        x: 40,
-                        y: 60,
-                        r: 25
-                    }, {
-                        x: 80,
-                        y: 80,
-                        r: 50
-                    }, {
-                        x: 20,
-                        y: 30,
-                        r: 25
-                    }, {
-                        x: 0,
-                        y: 100,
-                        r: 5
-                    }],
+                    data: [
+                        @{
+                            var selectedData = Model.PostureSensorData.Where(d => d.Timestamp >= ViewBag.RangeStart && d.Timestamp <= ViewBag.RangeEnd);
+                        }
+                        @foreach (var data in selectedData)
+                        {
+                            int p1 = (data.PostureData & 0xF);
+                            int p2 = (data.PostureData & 0xF0) >> 4;
+                            int p3 = (data.PostureData & 0xF00) >> 8;
+                            int p4 = (data.PostureData & 0xF000) >> 12;
+                            int p5 = (data.PostureData & 0xF000) >> 16;
+                            int p6 = (data.PostureData & 0xF0000) >> 20;
+                            // int p7 = (data.PostureData & 0xF00000) >> 24;
+                            // int p8 = (data.PostureData & 0xF000000) >> 28;
+
+                            /*
+                             *    P1    P2
+                             * 
+                             *    P3    P4
+                             * |back of chair|
+                             * */
+
+                            double xAverage = ((p1 + p3) / 2) - ((p2 + p4) / 2);
+                            double yAverage = ((p1 + p2) / 2) - ((p3 + p4) / 2);
+
+                            @($"{{ x:{xAverage}, y:{yAverage}, r:{5} }}");
+                        }
+                        ],
 
                     backgroundColor: window.chartColors.blueTrans,
                     borderColor: window.chartColors.blue,
@@ -173,6 +176,22 @@
                             return (size / 24) * base;
                         }
                     }
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            suggestedMin: -8,    // minimum will be 0, unless there is a lower value.
+                            suggestedMax: 8,
+                        }
+                    }],
+                    xAxes: [{
+                        display: true,
+                        ticks: {
+                            suggestedMin: -8,    // minimum will be 0, unless there is a lower value.
+                            suggestedMax: 8,
+                        }
+                    }]
                 }
             }
         };
