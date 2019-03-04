@@ -144,7 +144,7 @@
 
                             /*
                              *    P1    P2
-                             * 
+                             *
                              *    P3    P4
                              * |back of chair|
                              * */
@@ -253,38 +253,25 @@
         var chartMotionConfig = {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [{
-                    label: 'My First dataset',
+                    label: 'Motion',
                     backgroundColor: window.chartColors.red,
                     borderColor: window.chartColors.red,
                     data: [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
+                        @foreach (var dataPoint in Model.MotionSensorData.Where(d => d.Timestamp >= ViewBag.RangeStart && d.Timestamp <= ViewBag.RangeEnd))
+                         {
+                             @Html.Raw($"{{x: '{dataPoint.Timestamp.ToString("o")}', y:'{dataPoint.Level}'}}");
+                             @Html.Raw(",");
+                         }
                     ],
-                    fill: false,
-                }, {
-                    label: 'My Second dataset',
-                    fill: false,
-                    backgroundColor: window.chartColors.blue,
-                    borderColor: window.chartColors.blue,
-                    data: [
-                        6,
-                        7,
-                        8,
-                        9,
-                        10
-                    ],
+                    fill: false,              
                 }]
             },
             options: {
                 responsive: true,
                 title: {
                     display: true,
-                    text: 'Chart.js Line Chart'
+                    text: 'Chair Speed'
                 },
                 tooltips: {
                     mode: 'index',
@@ -297,16 +284,18 @@
                 scales: {
                     xAxes: [{
                         display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Month'
+                        type: 'time',
+                        time: {
+                            displayFormats: {
+                                quarter: 'MMM YYYY'
+                            }
                         }
                     }],
                     yAxes: [{
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Value'
+                            labelString: 'Speed'
                         }
                     }]
                 }
