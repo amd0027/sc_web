@@ -164,5 +164,37 @@ namespace sc_web.Controllers
 
             return Ok();
         }
+
+        [Route("PostAirQualityData")]
+        public IHttpActionResult PostAirQualityData(Models.Chair.AirQualityModel data)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data");
+            }
+
+            if (!Request.Headers.TryGetValues("X-AuthKey", out var authKeyList))
+            {
+                return BadRequest("No AuthKey");
+            }
+
+            var authKey = authKeyList.FirstOrDefault();
+
+            var chair = ApplicationDbContext.Users.SelectMany(u => u.PairedChairs)
+                .Where(c => c.AuthKey == authKey)
+                .FirstOrDefault();
+
+            if (chair == null)
+            {
+                return BadRequest("Bad AuthKey");
+            }
+
+            data.Timestamp = CorrectTimeStamps(data.Timestamp);
+
+            chair.AirQualitySensorData.Add(data);
+            ApplicationDbContext.SaveChanges();
+
+            return Ok();
+        }
     }
 }

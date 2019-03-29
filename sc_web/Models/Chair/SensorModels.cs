@@ -51,4 +51,13 @@ namespace sc_web.Models.Chair
         public short Axis { get; set; }
         public short Level { get; set; }
     }
+
+    public class AirQualityModel
+    {
+        [Key]
+        public DateTime Timestamp { get; set; }
+
+        public int CO2 { get; set; }
+        public int VOC { get; set; }
+    }
 }

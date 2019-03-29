@@ -39,6 +39,9 @@
                         <li class="nav-item">
                             <a class="nav-link pl-0" data-toggle="collapse" data-parent="#chairDataGroup" href="#collapseSitting"><span data-feather="coffee"></span><span class="font-weight-bold pl-1">Sitting</span></a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" data-toggle="collapse" data-parent="#chairDataGroup" href="#collapseAirQuality"><span data-feather="alert-triangle"></span><span class="font-weight-bold pl-1">Air Quality</span></a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -98,6 +101,11 @@
                 <div class="collapse" id="collapseSitting">
                     <h2>Sitting</h2>
                     <canvas id="chartSitting"></canvas>
+                </div>
+
+                <div class="collapse" id="collapseAirQuality">
+                    <h2>Air Quality</h2>
+                    <canvas id="chartAirQuality"></canvas>
                 </div>
             </div>
         </main>
@@ -355,6 +363,83 @@
             }
         };
 
+        /*Air Quality Data*/
+        var chartAirQualityConfig = {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'CO2 Levels',
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    data: [
+                        @foreach (var dataPoint in Model.AirQualitySensorData.Where(d => d.Timestamp >= ViewBag.RangeStart && d.Timestamp <= ViewBag.RangeEnd))
+                         {
+                             @Html.Raw($"{{x: '{dataPoint.Timestamp.ToString("o")}', y:'{dataPoint.CO2}'}}");
+                             @Html.Raw(",");
+                         }
+                    ],
+                    fill: false,    
+                    yAxisID: 'CO2-axis',
+                }, {
+                    label: 'VOC Levels',
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    data: [
+                        @foreach (var dataPoint in Model.AirQualitySensorData.Where(d => d.Timestamp >= ViewBag.RangeStart && d.Timestamp <= ViewBag.RangeEnd))
+                         {
+                             @Html.Raw($"{{x: '{dataPoint.Timestamp.ToString("o")}', y:'{dataPoint.VOC}'}}");
+                             @Html.Raw(",");
+                         }
+                    ],
+                    fill: false,    
+                    yAxisID: 'VOC-axis',
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Air Quality'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        type: 'time',
+                        time: {
+                            displayFormats: {
+                                quarter: 'MMM YYYY'
+                            }
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            postion: 'left',
+                            labelString: 'Carbon Dioxide Levels',
+                            id: 'CO2-axis',
+                        }
+                    }, {
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            postion: 'right',
+                            labelString: 'Volatile Organic Compounds Levels',
+                            id: 'VOC-axis',
+                        }
+                    }]
+                }
+            }
+        };        
+
         window.onload = function () {
             var chartPostureCtx = document.getElementById('chartPosture').getContext('2d');
             new Chart(chartPostureCtx, charPostureConfig);
@@ -367,6 +452,9 @@
 
             var chartSittingCtx = document.getElementById('chartSitting').getContext('2d');
             new Chart(chartSittingCtx, chartSittingConfig);
+
+            var chartAirQualityCtx = document.getElementByID('chartAirQuality').getContext('2d');
+            new Chart(chartAirQualityCtx, chartAirQualityConfig);
         }
     </script>
 }
