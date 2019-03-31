@@ -364,10 +364,10 @@
         };
 
         /*Air Quality Data*/
-        var chartAirQualityConfig = {
-            type: 'line',
+        var chartAirQualityConfig = {           
             data: {
                 datasets: [{
+                    type: 'line',
                     label: 'CO2 Levels',
                     backgroundColor: window.chartColors.red,
                     borderColor: window.chartColors.red,
@@ -381,9 +381,10 @@
                     fill: false,    
                     yAxisID: 'CO2-axis',
                 }, {
+                    type: 'line',
                     label: 'VOC Levels',
-                    backgroundColor: window.chartColors.red,
-                    borderColor: window.chartColors.red,
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
                     data: [
                         @foreach (var dataPoint in Model.AirQualitySensorData.Where(d => d.Timestamp >= ViewBag.RangeStart && d.Timestamp <= ViewBag.RangeEnd))
                          {
@@ -421,17 +422,17 @@
                     }],
                     yAxes: [{
                         display: true,
+                        position: "left",
                         scaleLabel: {
-                            display: true,
-                            postion: 'left',
+                            display: true,                            
                             labelString: 'Carbon Dioxide Levels',
                             id: 'CO2-axis',
                         }
                     }, {
                         display: true,
+                        position: "right",
                         scaleLabel: {
-                            display: true,
-                            postion: 'right',
+                            display: true,                            
                             labelString: 'Volatile Organic Compounds Levels',
                             id: 'VOC-axis',
                         }
@@ -453,7 +454,7 @@
             var chartSittingCtx = document.getElementById('chartSitting').getContext('2d');
             new Chart(chartSittingCtx, chartSittingConfig);
 
-            var chartAirQualityCtx = document.getElementByID('chartAirQuality').getContext('2d');
+            var chartAirQualityCtx = document.getElementById('chartAirQuality').getContext('2d');
             new Chart(chartAirQualityCtx, chartAirQualityConfig);
         }
     </script>
