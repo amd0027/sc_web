@@ -29,8 +29,7 @@ namespace sc_web.Models.Chair
 
         public DateTime SitDownTime { get; set; }
 
-        // A 32-bit integer will allow for 42 days of sitting - more than enough
-        public int ElapsedTimeMs { get; set; }
+        public int ElapsedTimeSeconds { get; set; }
     }
 
     public class MotionEventModel

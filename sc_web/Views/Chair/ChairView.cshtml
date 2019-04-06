@@ -322,11 +322,11 @@
                             var oneHour = TimeSpan.FromHours(1);
                             var twoHours = TimeSpan.FromHours(2);
                          }
-                        @selectedPoints.Count(d => d.ElapsedTimeMs < tenMinutes.TotalMilliseconds),
-                        @selectedPoints.Count(d => d.ElapsedTimeMs >= tenMinutes.TotalMilliseconds && d.ElapsedTimeMs < thirtyMinutes.TotalMilliseconds),
-                        @selectedPoints.Count(d => d.ElapsedTimeMs >= thirtyMinutes.TotalMilliseconds && d.ElapsedTimeMs < oneHour.TotalMilliseconds),
-                        @selectedPoints.Count(d => d.ElapsedTimeMs >= oneHour.TotalMilliseconds && d.ElapsedTimeMs < twoHours.TotalMilliseconds),
-                        @selectedPoints.Count(d => d.ElapsedTimeMs >= twoHours.TotalMilliseconds),
+                        @selectedPoints.Count(d => d.ElapsedTimeSeconds < tenMinutes.TotalSeconds),
+                        @selectedPoints.Count(d => d.ElapsedTimeSeconds >= tenMinutes.TotalSeconds && d.ElapsedTimeSeconds < thirtyMinutes.TotalSeconds),
+                        @selectedPoints.Count(d => d.ElapsedTimeSeconds >= thirtyMinutes.TotalSeconds && d.ElapsedTimeSeconds < oneHour.TotalSeconds),
+                        @selectedPoints.Count(d => d.ElapsedTimeSeconds >= oneHour.TotalSeconds && d.ElapsedTimeSeconds < twoHours.TotalSeconds),
+                        @selectedPoints.Count(d => d.ElapsedTimeSeconds >= twoHours.TotalSeconds),
                     ],
                     backgroundColor: [
                         window.chartColors.green,
