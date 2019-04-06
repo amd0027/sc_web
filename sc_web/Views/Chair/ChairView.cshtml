@@ -141,26 +141,24 @@
                         }
                         @foreach (var data in selectedData)
                         {
-                            int p1 = (data.PostureData & 0xF);
-                            int p2 = (data.PostureData & 0xF0) >> 4;
-                            int p3 = (data.PostureData & 0xF00) >> 8;
-                            int p4 = (data.PostureData & 0xF000) >> 12;
-                            int p5 = (data.PostureData & 0xF000) >> 16;
-                            int p6 = (data.PostureData & 0xF0000) >> 20;
+                            // Front is at the front of chair, near the user's knee
+                            // Rear is at the back of the chair base
+                            // Upper is on the backrest, near the user's shoulders
+
+                            int left_front = (data.PostureData & 0xF0000) >> 20;
+                            int left_rear = (data.PostureData & 0xF000) >> 16;
+                            int left_upper = (data.PostureData & 0xF000) >> 12;
+                            int right_front = (data.PostureData & 0xF00) >> 8;
+                            int right_rear = (data.PostureData & 0xF0) >> 4;
+                            int right_upper = (data.PostureData & 0xF);
+
                             // int p7 = (data.PostureData & 0xF00000) >> 24;
                             // int p8 = (data.PostureData & 0xF000000) >> 28;
 
-                            /*
-                             *    P1    P2
-                             *
-                             *    P3    P4
-                             * |back of chair|
-                             * */
+                            double xAverage = ((left_front + left_rear) / 2) - ((right_front + right_rear) / 2);
+                            double yAverage = ((left_front + right_front) / 2) - ((left_rear + right_rear) / 2);
 
-                            double xAverage = ((p1 + p3) / 2) - ((p2 + p4) / 2);
-                            double yAverage = ((p1 + p2) / 2) - ((p3 + p4) / 2);
-
-                            @($"{{ x:{xAverage}, y:{yAverage}, r:{5} }}");
+                            @($"{{ x:{xAverage}, y:{yAverage}, r:{5} }},");
                         }
                         ],
 
