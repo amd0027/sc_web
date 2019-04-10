@@ -158,6 +158,7 @@ namespace sc_web.Controllers
             }
 
             data.Timestamp = CorrectTimeStamps(data.Timestamp);
+            data.SitDownTime = CorrectTimeStamps(data.SitDownTime);
 
             chair.OccupancySessionData.Add(data);
             ApplicationDbContext.SaveChanges();
