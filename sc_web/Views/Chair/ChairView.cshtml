@@ -69,42 +69,46 @@
                 <div class="collapse show" id="collapseOverview">
                     <h2>Overview</h2>
                     The dashboard shows the health data gathered over time. Use the menu at the left to choose the graph to view. Use the menu at the upper-right to choose the time period.
-
-                    <br />
-                    ------------------------------DEBUG DATA-----------------------------<br />
-                    AuthKey: @Model.AuthKey <br />
-                    WebKey: @Model.WebKey <br />
-                    ChairName: @Model.Name <br />
-                    Number of Heart Points: @Model.HeartSensorData.Count <br />
-                    Number of Motion Points: @Model.MotionSensorData.Count <br />
-                    Number of Posture Points: @Model.PostureSensorData.Count <br />
-                    Number of Occupancy Points: @Model.OccupancySessionData.Count <br />
-                    RangeStart: @ViewBag.RangeStart <br />
-                    RangeEnd: @ViewBag.RangeEnd <br />
                 </div>
 
                 <div class="collapse" id="collapsePosture">
                     <h2>Posture</h2>
+                    The Posture Plot below shows the approximate positions in the SmartChair that you have sat in recently. For best posture, try to sit squarely in the chair, not leaning towards the left or the right, and not slouching. 
+                    Best posture is indicated by having lots of markers clustered around the center of the plot. <br />
+                    <ul>
+                        <li>Leaning in the chair will be indicated by having lots of points on the far left and right sides of the graph. Try to sit more in the center, without leaning.</li>
+                        <li>Slouching or learning forward will be indicated by lots of points near the top of the graph. Try sitting more upright.</li>
+                        <li>Leaning backwards will be indicated by having lots of points at the bottom of the graph. Try sitting more upright.</li>
+                    </ul>
                     <canvas id="chartPosture"></canvas>
                 </div>
 
                 <div class="collapse" id="collapseHeart">
                     <h2>Heart</h2>
+                    Resting Heart Rate information collected from your SmartChair is shown below. For best results, heart rate meaurements should be performed after you have been sitting in the chair for several minutes, to establish your resting heart rate.
+                    Long-term increases in resting heart rate can be a symptom of several health conditions.
                     <canvas id="chartHeart"></canvas>
                 </div>
 
                 <div class="collapse" id="collapseMotion">
                     <h2>Motion</h2>
+                    Restlessness while sitting can offer insight into your overall health. Spikes in motion while sitting in the SmartChair are shown below.
                     <canvas id="chartMotion"></canvas>
                 </div>
 
                 <div class="collapse" id="collapseSitting">
                     <h2>Sitting</h2>
+                    Sitting for extended durations is not recommended. Experts recommend getting up several times per hour, and walking or standing for a bit. 
+                    The figure below shows how long you have been sitting in the SmartChair.<br />
+                    Hover over the graph for more details. 
+
                     <canvas id="chartSitting"></canvas>
                 </div>
 
                 <div class="collapse" id="collapseAirQuality">
                     <h2>Air Quality</h2>
+                    Your SmartChair samples the amount of Carbon Dioxide and Volatile Compounds present in the air. Exposure to high quantities of these compounds can result in long-term health problems. <br />
+                    The recommended maximum level of CO2 and VOC is shown on the graph, along with the measured quanitity from your SmartChair. To reduce CO2 and VOC quantities, try increasing ventilation and airflow in the room.
                     <canvas id="chartAirQualityCO2"></canvas>
                     <canvas id="chartAirQualityVOC"></canvas>
                 </div>
@@ -156,6 +160,8 @@
                             // Bias the front sensors since they typically have less pressure than the others
                             //left_front = (int)Math.Min(left_front * 2.5, 15);
                             //right_front = (int)Math.Min(right_front * 2.5, 15);
+                            // Previous bias logic that used rear-sensors to adjust the bias factor removed after experimental testing
+                            // That approach could probably work with better calibration, but we found a constant 2.5x bias worked just as well
 
                             // int p7 = (data.PostureData & 0xF00000) >> 24;
                             // int p8 = (data.PostureData & 0xF000000) >> 28;
@@ -192,15 +198,17 @@
                     yAxes: [{
                         display: true,
                         ticks: {
-                            suggestedMin: -8,    // minimum will be 0, unless there is a lower value.
-                            suggestedMax: 8,
+                            min: -9,
+                            max: 11,
+                            display: false
                         }
                     }],
                     xAxes: [{
                         display: true,
                         ticks: {
-                            suggestedMin: -8,    // minimum will be 0, unless there is a lower value.
-                            suggestedMax: 8,
+                            min: -9,
+                            max: 9,
+                            display: false
                         }
                     }]
                 }
@@ -254,6 +262,10 @@
                         scaleLabel: {
                             display: true,
                             labelString: 'BPM'
+                        },
+                        ticks: {
+                            suggestedMin: 50,
+                            suggestedMax: 150
                         }
                     }]
                 }
@@ -306,7 +318,7 @@
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Speed'
+                            labelString: 'Relative Motion'
                         }
                     }]
                 }
