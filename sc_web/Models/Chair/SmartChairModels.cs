@@ -18,5 +18,6 @@ namespace sc_web.Models.Chair
         public virtual List<PostureSensorModel> PostureSensorData { get; set; }
         public virtual List<MotionEventModel> MotionSensorData { get; set; }
         public virtual List<OccupancySessionModel> OccupancySessionData { get; set; }
+        public virtual List<AirQualityModel> AirQualitySensorData { get; set; }
     }
 }
